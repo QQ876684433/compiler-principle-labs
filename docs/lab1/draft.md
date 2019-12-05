@@ -217,6 +217,8 @@ public class Test{
 
 - 字符串
 
+  （此图的I3->I4有点错误，边上应该为）
+
   ![](https://i.loli.net/2019/12/05/Cks5Kb2NFVQLfW8.jpg)
 
 - 字符（已经是DFA）
