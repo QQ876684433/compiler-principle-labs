@@ -48,7 +48,7 @@ public class Test{
 		Test test1 = new Test();
 		Test test2 = Test.getInstance();
 		if(test1 == test2){
-			System.out.ptintln("test1 == test2");
+			System.out.println("test1 == test2");
 		}else{
 			System.out.println("test1 != test2");
 		}

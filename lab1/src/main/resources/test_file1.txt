@@ -1,0 +1,45 @@
+public class Test{
+	private int a;
+	protected double b = 0.1;
+	final public String c = "Test";
+    // 演示单行注释
+    static Test instance;
+
+    Test(){
+    	this(0);	// 演示语句后注释
+    }
+
+    private Test(int a){
+    	this.a = a;
+    }
+
+	public void func1(){
+		System.out.println("func1");
+	}
+
+	protected int func2(int a, int b){
+		return a + b;
+	}
+
+	private String func3(/* 演示行内注释 */){
+		return "Test";
+	}
+
+	public static Test getInstance(){
+		if(instance == null){
+			instance = new Test();
+		}
+		return instance;
+	}
+
+	public static void main(String[] args){
+		Test test1 = new Test();
+		Test test2 = Test.getInstance();
+		if(test1 == test2){
+			System.out.println("test1 == test2");
+		}else{
+			System.out.println("test1 != test2");
+		}
+		while(true){}
+	}
+}
