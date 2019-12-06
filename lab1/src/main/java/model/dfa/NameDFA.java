@@ -1,5 +1,7 @@
 package model.dfa;
 
+import utils.CharUtil;
+
 /**
  * 类名，函数名和变量名等的DFAo
  */
@@ -19,7 +21,7 @@ public class NameDFA implements DFA {
     public int move(char ch) {
         switch (this.state) {
             case I0:
-                if (ch == '_' || ch == '$' || (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
+                if (ch == '_' || ch == '$' || CharUtil.isAlphabet(ch)) {
                     this.state = State.I1;
                     return STATE_END;
                 } else {
@@ -27,8 +29,7 @@ public class NameDFA implements DFA {
                     return STATE_WRONG;
                 }
             case I1:
-                if (ch == '_' || ch == '$' || (ch >= 'a' && ch <= 'z')
-                        || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')) {
+                if (ch == '_' || ch == '$' || CharUtil.isAlphabet(ch) || CharUtil.isDigit(ch)) {
                     this.state = State.I1;
                     return STATE_END;
                 } else {

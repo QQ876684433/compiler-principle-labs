@@ -1,5 +1,7 @@
 package model.dfa;
 
+import utils.CharUtil;
+
 /**
  * 浮点数DFAo
  */
@@ -22,7 +24,7 @@ public class FloatDFA implements DFA {
                 if (ch == '.') {
                     this.state = State.I2;
                     return STATE_NOT_END;
-                } else if (ch >= '0' && ch <= '9') {
+                } else if (CharUtil.isDigit(ch)) {
                     this.state = State.I1;
                     return STATE_NOT_END;
                 } else {
@@ -30,7 +32,7 @@ public class FloatDFA implements DFA {
                     return STATE_WRONG;
                 }
             case I1:
-                if (ch >= '0' && ch <= '9') {
+                if (CharUtil.isDigit(ch)) {
                     this.state = State.I1;
                     return STATE_NOT_END;
                 } else if (ch == '.') {
@@ -41,7 +43,7 @@ public class FloatDFA implements DFA {
                     return STATE_WRONG;
                 }
             case I2:
-                if (ch >= '0' && ch <= '9') {
+                if (CharUtil.isDigit(ch)) {
                     this.state = State.I3;
                     return STATE_END;
                 } else {
@@ -49,7 +51,7 @@ public class FloatDFA implements DFA {
                     return STATE_WRONG;
                 }
             case I3:
-                if (ch >= '0' && ch <= '9') {
+                if (CharUtil.isDigit(ch)) {
                     this.state = State.I3;
                     return STATE_END;
                 } else {

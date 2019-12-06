@@ -1,5 +1,7 @@
 package model.dfa;
 
+import utils.CharUtil;
+
 /**
  * 十六进制DFAo
  */
@@ -35,7 +37,7 @@ public class HexDFA implements DFA {
                     return STATE_WRONG;
                 }
             case I2:
-                if ((ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'f') || (ch >= 'A' && ch <= 'F')) {
+                if (CharUtil.isDigit(ch) || CharUtil.isHexAlpha(ch)) {
                     this.state = State.I3;
                     return STATE_END;
                 } else {
@@ -43,7 +45,7 @@ public class HexDFA implements DFA {
                     return STATE_WRONG;
                 }
             case I3:
-                if ((ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'f') || (ch >= 'A' && ch <= 'F')) {
+                if (CharUtil.isDigit(ch) || CharUtil.isHexAlpha(ch)) {
                     this.state = State.I3;
                     return STATE_END;
                 } else {

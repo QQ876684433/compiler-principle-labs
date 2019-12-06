@@ -1,5 +1,7 @@
 package model.dfa;
 
+import utils.CharUtil;
+
 /**
  * 字符DFAo
  */
@@ -41,7 +43,7 @@ public class CharacterDFA implements DFA {
                 this.reset();
                 return STATE_TERMINAL;
             case I3:
-                if ("btnrf\\'".indexOf(ch) >= 0 || (ch >= '0' && ch <= '9')) {
+                if ("btnrf\\'".indexOf(ch) >= 0 || CharUtil.isDigit(ch)) {
                     this.state = State.I1;
                     return STATE_NOT_END;
                 }else {

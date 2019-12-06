@@ -5,6 +5,19 @@ public class Token {
     private int catalog;
     private String errorMsg;
 
+    public Token() {
+    }
+
+    public Token(String lexeme, int catalog) {
+        this(lexeme, catalog, null);
+    }
+
+    public Token(String lexeme, int catalog, String errorMsg) {
+        this.lexeme = lexeme;
+        this.catalog = catalog;
+        this.errorMsg = errorMsg;
+    }
+
     public String getLexeme() {
         return lexeme;
     }

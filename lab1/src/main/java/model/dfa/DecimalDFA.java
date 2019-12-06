@@ -1,5 +1,7 @@
 package model.dfa;
 
+import utils.CharUtil;
+
 /**
  * 十进制整数DFAo
  */
@@ -19,7 +21,7 @@ public class DecimalDFA implements DFA {
     public int move(char ch) {
         switch (this.state) {
             case I0:
-                if (ch >= '0' && ch <= '9') {
+                if (CharUtil.isDigit(ch)) {
                     this.state = State.I1;
                     return STATE_END;
                 } else {
@@ -27,7 +29,7 @@ public class DecimalDFA implements DFA {
                     return STATE_WRONG;
                 }
             case I1:
-                if (ch >= '0' && ch <= '9') {
+                if (CharUtil.isDigit(ch)) {
                     this.state = State.I1;
                     return STATE_END;
                 } else {
