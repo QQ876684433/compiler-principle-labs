@@ -177,7 +177,7 @@ public class Test{
 
 - 字符
 
-  ![](https://i.loli.net/2019/12/05/7pKhge8lHYVDEBi.jpg)
+  ![](https://i.loli.net/2019/12/06/clG7WkzfMj3QxNL.png)
 
 - 数字
 
@@ -258,9 +258,11 @@ while (charReader.hasNext()) {
   - I4：浮点数
   - I6：十六进制整数
 
+  （**后来发现上面的图还是NFA，修正图如下**）
+
 - 然后将剩余的三个DFA和上面的合并
 
-  ![](https://i.loli.net/2019/12/06/GLnPDd2BqrZp3uh.png)
+  ![](https://i.loli.net/2019/12/06/4DtEhbQINB5OlVe.png)
 
 ## DFA
 

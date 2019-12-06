@@ -1,8 +1,8 @@
 package model;
 
 public class Delimiter {
-    private static int CATALOG_BASE;
-    private static int WRONG_DELIMITER;
+    public static int CATALOG_BASE;
+    public static int WRONG_DELIMITER;
 
     public static final String[] delimiters = {
             "(", ")", "{", "}", "[", "]", ";", ","
