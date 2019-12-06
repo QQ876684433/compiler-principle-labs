@@ -1,4 +1,4 @@
-public class Test{
+public class Test#{
 	private int a;
 	protected double b = 0.1;
 	final public String c = "Test";
@@ -40,6 +40,8 @@ public class Test{
 		}else{
 			System.out.println("test1 != test2");
 		}
-		while(true){}
+		while(true){
+		    System.out.println("\t  \b\"");
+		}
 	}
 }

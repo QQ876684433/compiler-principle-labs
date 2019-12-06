@@ -262,7 +262,7 @@ while (charReader.hasNext()) {
 
 - 然后将剩余的三个DFA和上面的合并
 
-  ![](https://i.loli.net/2019/12/06/4DtEhbQINB5OlVe.png)
+  ![](https://i.loli.net/2019/12/06/gOSTH6zDdsX8t7P.png)
 
 ## DFA
 

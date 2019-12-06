@@ -1,4 +1,4 @@
-package model.dfa;
+package model;
 
 import utils.CharUtil;
 
@@ -27,7 +27,7 @@ public class DFAImpl implements DFA {
                 } else if (CharUtil.isDigit(ch) && ch != '0') {
                     this.state = State.I1;
                     return STATE_END;
-                } else if (ch == 0) {
+                } else if (ch == '0') {
                     this.state = State.I3;
                     return STATE_NOT_END;
                 } else if (ch == '_' || ch == '$' || CharUtil.isAlphabet(ch)) {
@@ -52,7 +52,7 @@ public class DFAImpl implements DFA {
                     return STATE_END;
                 } else {
                     this.reset();
-                    return TOKEN_DECIMAL;
+                    return Token.TOKEN_DECIMAL;
                 }
             case I2:
                 if (CharUtil.isDigit(ch)) {
@@ -60,18 +60,21 @@ public class DFAImpl implements DFA {
                     return STATE_END;
                 } else {
                     this.reset();
-                    return TOKEN_DOT;
+                    return Token.TOKEN_DOT;
                 }
             case I3:
                 if (ch == 'X' || ch == 'x') {
                     this.state = State.I5;
                     return STATE_NOT_END;
+                } else if (ch == '.') {
+                    this.state = State.I4;
+                    return STATE_END;
                 } else if (CharUtil.isDigit(ch)) {
                     this.state = State.I1;
                     return STATE_END;
                 } else {
                     this.reset();
-                    return TOKEN_DECIMAL;
+                    return Token.TOKEN_DECIMAL;
                 }
             case I4:
                 if (CharUtil.isDigit(ch)) {
@@ -79,7 +82,7 @@ public class DFAImpl implements DFA {
                     return STATE_END;
                 } else {
                     this.reset();
-                    return TOKEN_FLOAT;
+                    return Token.TOKEN_FLOAT;
                 }
             case I5:
                 if (CharUtil.isDigit(ch) || CharUtil.isHexAlpha(ch)) {
@@ -95,7 +98,7 @@ public class DFAImpl implements DFA {
                     return STATE_END;
                 } else {
                     this.reset();
-                    return TOKEN_HEX;
+                    return Token.TOKEN_HEX;
                 }
             case I7:
                 if (ch == '_' || ch == '$' || CharUtil.isAlphabet(ch) || CharUtil.isDigit(ch)) {
@@ -103,7 +106,7 @@ public class DFAImpl implements DFA {
                     return STATE_END;
                 } else {
                     this.reset();
-                    return TOKEN_NAME;
+                    return Token.TOKEN_NAME;
                 }
             case I8:
                 if (ch == '\\') {
@@ -117,7 +120,7 @@ public class DFAImpl implements DFA {
                     return STATE_NOT_END;
                 }
             case I9:
-                if ("btnrf\\'\"".indexOf(ch) >= 0 || CharUtil.isDigit(ch)) {
+                if ("btnrf\\'\"".indexOf(ch) >= 0 || (CharUtil.isDigit(ch) && ch != '8' && ch != '9')) {
                     this.state = State.I10;
                     return STATE_NOT_END;
                 } else {
@@ -137,7 +140,7 @@ public class DFAImpl implements DFA {
                 }
             case I11:
                 this.reset();
-                return TOKEN_STRING;
+                return Token.TOKEN_STRING;
             case I12:
                 if (ch == '\\') {
                     this.state = State.I13;
@@ -150,7 +153,7 @@ public class DFAImpl implements DFA {
                     return STATE_NOT_END;
                 }
             case I13:
-                if ("btnrf\\'".indexOf(ch) >= 0 || CharUtil.isDigit(ch)) {
+                if ("btnrf\\'".indexOf(ch) >= 0 || (CharUtil.isDigit(ch) && ch != '8' && ch != '9')) {
                     this.state = State.I14;
                     return STATE_NOT_END;
                 } else {
@@ -158,16 +161,16 @@ public class DFAImpl implements DFA {
                     return STATE_WRONG;
                 }
             case I14:
-                if (ch=='\''){
+                if (ch == '\'') {
                     this.state = State.I15;
                     return STATE_END;
-                }else {
+                } else {
                     this.reset();
                     return STATE_WRONG;
                 }
             case I15:
                 this.reset();
-                return TOKEN_CHARACTER;
+                return Token.TOKEN_CHARACTER;
             default:
                 // would never reach here
                 return -1;
