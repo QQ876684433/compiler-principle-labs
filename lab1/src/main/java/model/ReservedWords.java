@@ -2,7 +2,7 @@ package model;
 
 public class ReservedWords {
     public static int CATALOG_BASE;
-    public static int NOT_RESERVED_WORD;
+    public static int NOT_RESERVED_WORD = -1;
 
     public static final String[] reservedWords = {
             "abstract", "assert",

@@ -2,7 +2,7 @@ package model;
 
 public class Operator {
     public static int CATALOG_BASE;
-    public static int WRONG_OPERATOR;
+    public static int WRONG_OPERATOR = -1;
 
     public static final String[] operators = {
             "++", "--", "+", "-", "~", "!", "*", "/", "%",

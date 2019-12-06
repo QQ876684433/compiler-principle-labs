@@ -3,9 +3,8 @@ import java.io.*;
 /**
  * @author steve_chph, 2019-12-05
  * @class CharReader
- * 
- *        字符读取器：（1）每次读单个字符或者多个字符；（2）可以将单个字符或者多个字符回退到字符流中
- * 
+ * <p>
+ * 字符读取器：（1）每次读单个字符或者多个字符；（2）可以将单个字符或者多个字符回退到字符流中
  */
 
 public class CharReader {
@@ -23,23 +22,27 @@ public class CharReader {
         bufferedReader.read(charSequence, 0, this.length);
     }
 
-    public CharReader(char[] charSequence){
+    public CharReader(char[] charSequence) {
         this.length = charSequence.length;
         this.charSequence = new char[this.length];
         this.pointer = 0;
         System.arraycopy(charSequence, 0, this.charSequence, 0, this.length);
     }
 
-    public char next(){
+    public char next() {
         if (!hasNext()) return 0;
         return this.charSequence[pointer++];
     }
 
-    public boolean hasNext(){
+    public void unRead() {
+        if (pointer > 0) pointer--;
+    }
+
+    public boolean hasNext() {
         return pointer < length;
     }
 
-    public int getLength(){
+    public int getLength() {
         return this.length;
     }
 }

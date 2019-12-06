@@ -1,44 +1,30 @@
 package model;
 
 public class Token {
+    /* token的catalog编码 */
+    public static int CATALOG_BASE;
+    public static final int TOKEN_DOT = Operator.CATALOG_BASE + Operator.isOperator(".");
+    public static final int TOKEN_DECIMAL = CATALOG_BASE + 1;
+    public static final int TOKEN_HEX = CATALOG_BASE + 2;
+    public static final int TOKEN_FLOAT = CATALOG_BASE + 3;
+    public static final int TOKEN_NAME = CATALOG_BASE + 4;
+    public static final int TOKEN_STRING = CATALOG_BASE + 5;
+    public static final int TOKEN_CHARACTER = CATALOG_BASE + 6;
+    public static final int TOKEN_ILLEGAL = CATALOG_BASE + 7;
+
     private String lexeme;
     private int catalog;
-    private String errorMsg;
-
-    public Token() {
-    }
 
     public Token(String lexeme, int catalog) {
-        this(lexeme, catalog, null);
-    }
-
-    public Token(String lexeme, int catalog, String errorMsg) {
         this.lexeme = lexeme;
         this.catalog = catalog;
-        this.errorMsg = errorMsg;
     }
 
     public String getLexeme() {
         return lexeme;
     }
 
-    public void setLexeme(String lexeme) {
-        this.lexeme = lexeme;
-    }
-
     public int getCatalog() {
         return catalog;
-    }
-
-    public void setCatalog(int catalog) {
-        this.catalog = catalog;
-    }
-
-    public String getErrorMsg() {
-        return errorMsg;
-    }
-
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
     }
 }
