@@ -34,8 +34,7 @@ public class Lex {
         return this.tokens.iterator();
     }
 
-    public static void main(String[] args) {
-        String file = "/home/steve/Documents/Projects/compiler-principle-labs/lab1/src/main/resources/test_file1.txt";
+    public void parse(String file){
         CharReader charReader = null;
         try {
             charReader = new CharReader(file);
@@ -46,7 +45,6 @@ public class Lex {
         }
         charReader = PreProcessor.preProcess(charReader);
 
-        Lex lex = new Lex();
         DFA dfa = new DFAImpl();
         char cur;
         int nextState;
@@ -59,7 +57,7 @@ public class Lex {
                 if (CharUtil.isBlank(cur)) {
                     // 空白字符
                     if (word.length() > 0)
-                        lex.addToken(word.toString(), Token.TOKEN_ILLEGAL);
+                        this.addToken(word.toString(), Token.TOKEN_ILLEGAL);
                     word = new StringBuilder();
                 } else {
                     // 界符或者运算符
@@ -69,7 +67,7 @@ public class Lex {
                     int catalog2 = Delimiter.isDelimiter(lexeme);
                     if (catalog1 == -1 && catalog2 == -1) {
                         // 非法界符或者运算符
-                        lex.addToken(lexeme, Token.TOKEN_ILLEGAL);
+                        this.addToken(lexeme, Token.TOKEN_ILLEGAL);
                         word = new StringBuilder();
                     } else if (catalog1 != -1) {
                         // 运算符
@@ -77,7 +75,7 @@ public class Lex {
                             cur = charReader.next();
                             int c = Operator.isOperator(word.toString() + cur);
                             if (c == -1) {
-                                lex.addToken(word.toString(), catalog1);
+                                this.addToken(word.toString(), catalog1);
                                 word = new StringBuilder();
                                 charReader.unRead();
                                 break;
@@ -88,7 +86,7 @@ public class Lex {
                         }
                     } else {
                         // 界符
-                        lex.addToken(word.toString(), catalog2);
+                        this.addToken(word.toString(), catalog2);
                         word = new StringBuilder();
                     }
                 }
@@ -100,18 +98,21 @@ public class Lex {
                 if (nextState == Token.TOKEN_NAME) {
                     int catalog = ReservedWords.isReservedWord(lexeme);
                     if (catalog == ReservedWords.NOT_RESERVED_WORD) {
-                        lex.addToken(lexeme, nextState);
+                        this.addToken(lexeme, nextState);
                     } else {
-                        lex.addToken(lexeme, catalog);
+                        this.addToken(lexeme, catalog);
                     }
                 } else {
-                    lex.addToken(lexeme, nextState);
+                    this.addToken(lexeme, nextState);
                 }
                 charReader.unRead();
                 word = new StringBuilder();
             }
         }
-        Iterator<Token> iterator = lex.getTokens();
+    }
+
+    public void getOutput(){
+        Iterator<Token> iterator = this.getTokens();
         while (iterator.hasNext()) {
             Token token = iterator.next();
             if (token.getCatalog() == Token.TOKEN_ILLEGAL) {
@@ -120,5 +121,12 @@ public class Lex {
                 System.out.println("<" + token.getCatalog() + "," + token.getLexeme() + ">");
             }
         }
+    }
+
+    public static void main(String[] args) {
+        String file = "/home/steve/Documents/Projects/compiler-principle-labs/lab1/src/main/resources/test_file1.txt";
+        Lex lex = new Lex();
+        lex.parse(file);
+        lex.getOutput();
     }
 }
