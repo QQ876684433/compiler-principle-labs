@@ -199,11 +199,68 @@ public class Test{
 
 
 
-## NFA
+## aNFA
 
 这一步是将上面的NFAs合并成一个大的NFA
 
-（图过大，这一步先省略了。。。）
+~~（图过大，这一步先省略了。。。）~~
+
+题外话：本来跳过了和并NFAs这一步，直接将各个NFA化简成了DFAo，然后就开始写代码，直到写完Lex框架后发现，在遍历输入字符流时容易出现不知道选择那个DFAo继续进行的情况，不得不通过试探法来尝试选择最优的DFAo，如下：
+
+```java
+Lex lex = new Lex();
+char cur;
+StringBuilder word = new StringBuilder();
+while (charReader.hasNext()) {
+    cur = charReader.next();
+    word.append(cur);
+    if (cur == '_' || cur == '$' || CharUtil.isAlphabet(cur)) {
+        // 类名，函数名或者变量名，使用NameDFA
+    } else if (cur == '\"') {
+        // 字符串，使用StringDFA
+    } else if (cur == '\'') {
+        // 字符，使用CharacterDFA
+    } else if (cur == '.') {
+        // 可能有两种情况，
+        // （1）以.开头的浮点数
+        // （2）运算符.
+    }else if (CharUtil.isDigit(cur)){
+        // 可能有三种情况
+        // （1）浮点数
+        // （2）十进制整数
+        // （3）十六进制整数
+    }else {
+        // 运算符或界符
+    }
+}
+```
+
+这不就是另一种的NFA？即同一条边有多个后续状态，这样不行！！于是我决定补上这一步，但是基于优化后的DFAo
+
+- 首先合并浮点数<u>（由于以`.`开头的浮点数可能会与运算符`.`产生歧义，因此给浮点数的DFAo的I2设置为终态，以表示运算符`.`）</u>、十进制整数和十六进制整数
+
+  | I              | [0-9]    | .      | 0      | x\|X    | [0-9a-fA-F] |
+  | -------------- | -------- | ------ | ------ | ------- | ----------- |
+  | I0={0,1,2,3,7} | {4,8}=I1 | {5}=I2 | {9}=I3 |         |             |
+  | I1={4,8}       | {4,8}=I1 | {6}=I4 |        |         |             |
+  | I2={5}         | {6}=I4   |        |        |         |             |
+  | I3={9}         |          |        |        | {10}=I5 |             |
+  | I4={6}         | {6}=I4   |        |        |         |             |
+  | I5={10}        |          |        |        |         | {11}=I6     |
+  | I6={11}        |          |        |        |         | {11}=I6     |
+
+  ![](https://i.loli.net/2019/12/06/glVQo4DfZeRiCbq.jpg)
+
+  其中：
+
+  - I1：十进制整数
+  - I2：运算符`.`
+  - I4：浮点数
+  - I6：十六进制整数
+
+- 然后将剩余的三个DFA和上面的合并
+
+  ![](https://i.loli.net/2019/12/06/GLnPDd2BqrZp3uh.png)
 
 ## DFA
 
@@ -217,7 +274,7 @@ public class Test{
 
 - 字符串
 
-  （此图的I3->I4有点错误，边上应该为）
+  （此图的I3->I4有点错误，边上应该为：["btnrf\\\\']）
 
   ![](https://i.loli.net/2019/12/05/Cks5Kb2NFVQLfW8.jpg)
 
@@ -290,7 +347,7 @@ public class Test{
 
     ![](https://i.loli.net/2019/12/05/3VCSikQ4BljYog1.jpg)
 
-  - 十六进制整数
+  - 十六进制整数  
 
     ![](https://i.loli.net/2019/12/05/woUnIx6TGX49keL.jpg)
 
