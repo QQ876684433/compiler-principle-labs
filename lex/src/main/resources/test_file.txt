@@ -1,0 +1,16 @@
+function add<a, b> {
+    var sum = 0;
+    for var i = a; i <= b; i = i + 1 {
+        sum = sum + i;
+    }
+    return sum;
+}
+
+function main <args, argv> {
+    if argv > 2 {
+        print add<args[1], args[2]>;
+    } else {
+        print add<1, 100>;
+    }
+    return 0;
+}
