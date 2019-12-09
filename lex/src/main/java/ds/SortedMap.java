@@ -1,5 +1,6 @@
 package ds;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -69,5 +70,13 @@ public class SortedMap<K, V> {
             if (entry.key.equals(k)) return entry.value;
         }
         return null;
+    }
+
+    public Iterator<Entry<K,V>> iterator(){
+        return this.elements.iterator();
+    }
+
+    public boolean isEmpty(){
+        return this.elements.isEmpty();
     }
 }

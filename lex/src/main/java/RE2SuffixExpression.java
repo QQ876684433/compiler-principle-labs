@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class RE2SuffixExpression {
     public static List<RE> transform(List<RE> res) {
-        List<RE> suffixExps = new LinkedList<RE>();
+        List<RE> suffixExps = new LinkedList<>();
         for (RE re : res) {
             Stack<Character> opStack = new Stack<Character>();
             String tmp = re.pattern + '#'; // 添加一个结束标识符

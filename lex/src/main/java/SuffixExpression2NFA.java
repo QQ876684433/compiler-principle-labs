@@ -1,3 +1,4 @@
+import ds.SortedMap;
 import object.NFA;
 import object.NFAState;
 import object.RE;
@@ -26,10 +27,10 @@ public class SuffixExpression2NFA {
                         secondNFA = nfaStack.pop();
                         start = new NFAState(stateNum++);
                         end = new NFAState(stateNum++);
-                        firstNFA.stateMap.getValue(firstNFA.endStates.get(0).getKey()).edgesMap.put('@', end.number);
-                        secondNFA.stateMap.getValue(secondNFA.endStates.get(0).getKey()).edgesMap.put('@', end.number);
-                        start.edgesMap.put('@', firstNFA.start);
-                        start.edgesMap.put('@', secondNFA.start);
+                        firstNFA.stateMap.getValue(firstNFA.endStates.get(0).getKey()).edgesMap.add(new SortedMap.Entry<>('@', end.number));
+                        secondNFA.stateMap.getValue(secondNFA.endStates.get(0).getKey()).edgesMap.add(new SortedMap.Entry<>('@', end.number));
+                        start.edgesMap.add(new SortedMap.Entry<>('@', firstNFA.start));
+                        start.edgesMap.add(new SortedMap.Entry<>('@', secondNFA.start));
                         secondNFA.stateMap.put(start.number, start);
                         secondNFA.stateMap.put(end.number, end);
                         secondNFA.stateMap.putAll(firstNFA.stateMap);
@@ -43,10 +44,10 @@ public class SuffixExpression2NFA {
                         firstNFA = nfaStack.pop();
                         start = new NFAState(stateNum++);
                         end = new NFAState(stateNum++);
-                        start.edgesMap.put('@', firstNFA.start);
-                        start.edgesMap.put('@', end.number);
-                        firstNFA.stateMap.getValue(firstNFA.endStates.get(0).getKey()).edgesMap.put('@', firstNFA.start);
-                        firstNFA.stateMap.getValue(firstNFA.endStates.get(0).getKey()).edgesMap.put('@', end.number);
+                        start.edgesMap.add(new SortedMap.Entry<>('@', firstNFA.start));
+                        start.edgesMap.add(new SortedMap.Entry<>('@', end.number));
+                        firstNFA.stateMap.getValue(firstNFA.endStates.get(0).getKey()).edgesMap.add(new SortedMap.Entry<>('@', firstNFA.start));
+                        firstNFA.stateMap.getValue(firstNFA.endStates.get(0).getKey()).edgesMap.add(new SortedMap.Entry<>('@', end.number));
                         firstNFA.start = start.number;
                         firstNFA.stateMap.put(start.number, start);
                         firstNFA.stateMap.put(end.number, end);
@@ -56,11 +57,12 @@ public class SuffixExpression2NFA {
                         break;
                     }
                     case '.': {
+                        // todo 好像是对的
                         firstNFA = nfaStack.pop();
                         secondNFA = nfaStack.pop();
                         // secondNFA firstNFA .
                         // 因此应该将secondNFA的终态与firstNFA的初态相连
-                        secondNFA.stateMap.getValue(secondNFA.endStates.get(0).getKey()).edgesMap.put('@', firstNFA.start);
+                        secondNFA.stateMap.getValue(secondNFA.endStates.get(0).getKey()).edgesMap.add(new SortedMap.Entry<>('@', firstNFA.start));
                         secondNFA.endStates.clear();
                         secondNFA.endStates.putAll(firstNFA.endStates);
                         secondNFA.stateMap.putAll(firstNFA.stateMap);
@@ -68,11 +70,12 @@ public class SuffixExpression2NFA {
                         break;
                     }
                     default: {
+                        // todo 好像是对的
                         NFA newNFA = new NFA();
                         start = new NFAState(stateNum++);
                         end = new NFAState(stateNum++);
                         newNFA.start = start.number;
-                        start.edgesMap.put(ch, end.number);
+                        start.edgesMap.add(new SortedMap.Entry<>(ch, end.number));
                         newNFA.stateMap.put(start.number, start);
                         newNFA.stateMap.put(end.number, end);
                         newNFA.endStates.put(end.number, placeholder);
@@ -88,8 +91,9 @@ public class SuffixExpression2NFA {
         while (!nfaStack.isEmpty()){
             NFAState start = new NFAState(stateNum++);
             tmpNFA = nfaStack.pop();
-            start.edgesMap.put('@', aNFA.start);
-            start.edgesMap.put('@', tmpNFA.start);
+            // todo 有问题
+            start.edgesMap.add(new SortedMap.Entry<>('@', aNFA.start));
+            start.edgesMap.add(new SortedMap.Entry<>('@', tmpNFA.start));
             aNFA.start = start.number;
             aNFA.stateMap.put(start.number, start);
             aNFA.endStates.putAll(tmpNFA.endStates);
