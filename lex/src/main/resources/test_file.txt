@@ -12,5 +12,10 @@ function main <args, argv> {
     } else {
         print add<1, 100>;
     }
+    if a == b {
+        print a
+    } else {
+        print b
+    }
     return 0;
 }

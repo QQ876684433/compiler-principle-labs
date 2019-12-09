@@ -63,14 +63,4 @@ public class RE2SuffixExpression {
         }
         return suffixExps;
     }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        List<RE> rules = new LinkedList<RE>();
-        rules.add(new RE("expr1", "(a*|(a|b*)*).(a|b).(a|b)*"));
-        rules.add(new RE("expr2", "a|b"));
-        List<RE> suffixExp = transform(RE.loadREs());
-        for (RE re : suffixExp) {
-            System.out.println(re.catalog + " -> " + re.pattern);
-        }
-    }
 }

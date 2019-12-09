@@ -101,9 +101,4 @@ public class SuffixExpression2NFA {
         }
         return aNFA;
     }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        NFA nfa = transform(RE2SuffixExpression.transform(RE.loadREs()));
-        System.out.println(nfa.start);
-    }
 }

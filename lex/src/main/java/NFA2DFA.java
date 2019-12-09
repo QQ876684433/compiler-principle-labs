@@ -67,6 +67,13 @@ public class NFA2DFA {
                     if (action != null) {
                         // 说明当前DFA状态是终态
                         // todo 会不会存在一个状态对应多个Action？
+                        Integer oldAction = dfa.endStatesMap.getValue(entry.getValue());
+                        if (oldAction != null) {
+                            // 说明当前状态已经存在了终态
+                            // action的值越小，优先级越高
+                            // 即REs文件中写的越靠前，优先级越高
+                            action = action < oldAction ? action : oldAction;
+                        }
                         dfa.endStatesMap.put(entry.getValue(), action);
                     }
                 }
@@ -120,26 +127,5 @@ public class NFA2DFA {
             }
         }
         return subset;
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        NFA nfa = SuffixExpression2NFA.transform(RE2SuffixExpression.transform(RE.loadREs()));
-        DFA dfa = transform(nfa);
-        List<RE> rules = RE.loadREs();
-        Iterator<SortedMap.Entry<Integer, DFAState>> integerDFAStateIterator = dfa.stateMap.iterator();
-        while (integerDFAStateIterator.hasNext()) {
-            SortedMap.Entry<Integer, DFAState> entry = integerDFAStateIterator.next();
-            System.out.print("I" + entry.getKey() + " -> ");
-            Iterator<SortedMap.Entry<Character, Integer>> map = entry.getValue().edgesMap.iterator();
-            while (map.hasNext()) {
-                SortedMap.Entry<Character, Integer> item = map.next();
-                System.out.print("(" + item.getKey() + ", I" + item.getValue() + ")  ");
-            }
-            Integer end = dfa.endStatesMap.getValue(entry.getKey());
-            if (end != null && end != placeholder) {
-                System.out.print("(END, " + end + ", " + rules.get(end).catalog + ")");
-            }
-            System.out.println();
-        }
     }
 }

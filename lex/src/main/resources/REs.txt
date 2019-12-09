@@ -5,6 +5,7 @@ FOR -> f.o.r
 IN -> i.n
 RET -> r.e.t.u.r.n
 FUNC -> f.u.n.c.t.i.o.n
+PRINT -> p.r.i.n.t
 ADD -> +
 INC -> +.+
 MINUS -> -
@@ -22,10 +23,10 @@ LSB -> [
 ESB -> ]
 LCB -> {
 RCB -> }
-ID -> [a-zA-Z].[0-9a-zA-Z]*
 VAR -> v.a.r
 VAL -> v.a.l
 INT -> [0-9].[0-9]*
 FLOAT -> [0-9].[0-9]*._.[0-9]*
 COMMA -> ,
 SEMICOLON -> ;
+ID -> [a-zA-Z].[0-9a-zA-Z]*

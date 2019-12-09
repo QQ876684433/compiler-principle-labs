@@ -38,11 +38,12 @@ public class Lex {
                 }
             }
             if (!hasFound) {
-                if (ch != ' ' && ch != '\n')
+                if (ch != ' ' && ch != '\n' && ch != '&')
                     charReader.unRead();
                 boolean isTerminated = false;
                 // 要判断当前状态是否进入了终态
                 Iterator<SortedMap.Entry<Integer, Integer>> endStates = dfa.endStatesMap.iterator();
+                List<Integer> endStatesList = new LinkedList<>();
                 while (endStates.hasNext()) {
                     SortedMap.Entry<Integer, Integer> end = endStates.next();
                     if (end.getKey() == state) {
@@ -55,6 +56,7 @@ public class Lex {
                     }
                 }
                 if (!isTerminated && ch != ' ' && ch != '\n') {
+                    builder.append(ch);
                     tokens.add(new Token(builder.toString(), ILLEGAL_TOKEN));
                 }
             }
