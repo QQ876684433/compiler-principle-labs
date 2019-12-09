@@ -130,17 +130,16 @@ public class NFA2DFA {
         while (integerDFAStateIterator.hasNext()) {
             SortedMap.Entry<Integer, DFAState> entry = integerDFAStateIterator.next();
             System.out.print("I" + entry.getKey() + " -> ");
-            if (entry.getValue().edgesMap.isEmpty()) {
-                int item = dfa.endStatesMap.getValue(entry.getKey());
-                System.out.println("(END, " + item + ", " + rules.get(item).catalog + ")");
-            } else {
-                Iterator<SortedMap.Entry<Character, Integer>> map = entry.getValue().edgesMap.iterator();
-                while (map.hasNext()) {
-                    SortedMap.Entry<Character, Integer> item = map.next();
-                    System.out.print("(" + item.getKey() + ", I" + item.getValue() + ")  ");
-                }
-                System.out.println();
+            Iterator<SortedMap.Entry<Character, Integer>> map = entry.getValue().edgesMap.iterator();
+            while (map.hasNext()) {
+                SortedMap.Entry<Character, Integer> item = map.next();
+                System.out.print("(" + item.getKey() + ", I" + item.getValue() + ")  ");
             }
+            Integer end = dfa.endStatesMap.getValue(entry.getKey());
+            if (end != null && end != placeholder) {
+                System.out.print("(END, " + end + ", " + rules.get(end).catalog + ")");
+            }
+            System.out.println();
         }
     }
 }
