@@ -2,6 +2,7 @@ public class Symbol {
     public static final int VT = 0;
     public static final int VN = 1;
     public static final int EPSILON = 2;
+    public static final int ACCEPT = 3;
 
     private int type;
     private String symbol;

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CfgReader {
+    public static final String START = "LANGUAGE";
     private List<Production> productions;
 
     public CfgReader(String prodSrc) throws FileNotFoundException {

@@ -14,22 +14,29 @@ public class First {
             // 获取非终结符号symbol的所有产生式
             List<Production> productions = cfg.getProductionByType(symbol.getSymbol());
             for (Production prod : productions) {
-                // If X is non-terminal, and X → Y1Y2…Yk， Yj(VNVT),1 <= j <= k, then
-                for (Symbol tmpSymbol : prod.getSymbols()) {
-                    Set<Symbol> tmpSymbols = first(cfg, tmpSymbol);
-                    symbols.addAll(tmpSymbols);
-                    // judge if X→ ε is a production
-                    boolean hasEpsilon = false;
-                    for (Symbol s:tmpSymbols){
-                        if (s.getType()==Symbol.EPSILON) {
-                            hasEpsilon = true;
-                            break;
-                        }
-                    }
-                    if (!hasEpsilon) {
-                        break;
-                    }
+                symbols.addAll(first(cfg, prod.getSymbols()));
+            }
+        }
+
+        return symbols;
+    }
+
+    public static Set<Symbol> first(CfgReader cfg, List<Symbol> string) {
+        Set<Symbol> symbols = new HashSet<>();
+
+        for (Symbol s : string) {
+            Set<Symbol> f = first(cfg, s);
+            symbols.addAll(f);
+            // judge if X→ ε is a production
+            boolean hasEpsilon = false;
+            for (Symbol tmp : f) {
+                if (tmp.getType() == Symbol.EPSILON) {
+                    hasEpsilon = true;
+                    break;
                 }
+            }
+            if (!hasEpsilon) {
+                break;
             }
         }
 
