@@ -13,8 +13,8 @@ public class TokenReader {
         tokens = new LinkedList<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(tokenSrc)));
         br.lines().forEach(line -> {
-            String tmp = line.replace('<', ' ')
-                    .replace('>', ' ');
+            String tmp = line.trim();
+            tmp = tmp.substring(1, tmp.length() - 1);
             String[] spits = tmp.split(",");
             tokens.add(new Token(spits[1].trim(), spits[0].trim()));
         });
