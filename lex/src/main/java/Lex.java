@@ -2,7 +2,10 @@ import ds.CharReader;
 import ds.SortedMap;
 import object.*;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +14,7 @@ public class Lex {
     public static final String ILLEGAL_TOKEN = "ILLEGAL_TOKEN";
 
     public static void main(String[] args) throws IOException {
-        String testFile = "/home/steve/Documents/Projects/compiler-principle-labs/lex/src/main/resources/test_file.txt";
+        String testFile = "src/main/resources/test_file.txt";
         NFA nfa = SuffixExpression2NFA.transform(RE2SuffixExpression.transform(RE.loadREs()));
         DFA dfa = NFA2DFA.transform(nfa);
         List<RE> rules = RE.loadREs();
@@ -61,8 +64,13 @@ public class Lex {
                 }
             }
         }
+
+        String outputFile = "src/main/resources/output_tokens.txt";
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile)));
         for (Token token : tokens) {
-            System.out.println("<" + token.getCatalog() + ", " + token.getLexeme() + ">");
+            bw.write("<" + token.getCatalog() + ", " + token.getLexeme() + ">\n");
         }
+        bw.flush();
+        bw.close();
     }
 }

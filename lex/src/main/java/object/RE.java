@@ -18,7 +18,7 @@ public class RE {
 
     public static List<RE> loadREs() throws FileNotFoundException {
         List<RE> res = new LinkedList<RE>();
-        String reFile = "/home/steve/Documents/Projects/compiler-principle-labs/lex/src/main/resources/REs.txt";
+        String reFile = "src/main/resources/REs.txt";
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(reFile)));
         br.lines().forEach(re -> {
             String pattern = re.replace("9a", "9|a").replace("zA", "z|A");

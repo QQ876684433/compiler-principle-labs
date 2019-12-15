@@ -46,8 +46,10 @@ public class SuffixExpression2NFA {
                         end = new NFAState(stateNum++);
                         start.edgesMap.add(new SortedMap.Entry<>('@', firstNFA.start));
                         start.edgesMap.add(new SortedMap.Entry<>('@', end.number));
-                        firstNFA.stateMap.getValue(firstNFA.endStates.get(0).getKey()).edgesMap.add(new SortedMap.Entry<>('@', firstNFA.start));
-                        firstNFA.stateMap.getValue(firstNFA.endStates.get(0).getKey()).edgesMap.add(new SortedMap.Entry<>('@', end.number));
+                        firstNFA.stateMap.getValue(firstNFA.endStates.get(0).getKey())
+                                .edgesMap.add(new SortedMap.Entry<>('@', firstNFA.start));
+                        firstNFA.stateMap.getValue(firstNFA.endStates.get(0).getKey())
+                                .edgesMap.add(new SortedMap.Entry<>('@', end.number));
                         firstNFA.start = start.number;
                         firstNFA.stateMap.put(start.number, start);
                         firstNFA.stateMap.put(end.number, end);
@@ -57,12 +59,12 @@ public class SuffixExpression2NFA {
                         break;
                     }
                     case '.': {
-                        // todo 好像是对的
                         firstNFA = nfaStack.pop();
                         secondNFA = nfaStack.pop();
                         // secondNFA firstNFA .
                         // 因此应该将secondNFA的终态与firstNFA的初态相连
-                        secondNFA.stateMap.getValue(secondNFA.endStates.get(0).getKey()).edgesMap.add(new SortedMap.Entry<>('@', firstNFA.start));
+                        secondNFA.stateMap.getValue(secondNFA.endStates.get(0).getKey())
+                                .edgesMap.add(new SortedMap.Entry<>('@', firstNFA.start));
                         secondNFA.endStates.clear();
                         secondNFA.endStates.putAll(firstNFA.endStates);
                         secondNFA.stateMap.putAll(firstNFA.stateMap);
@@ -70,7 +72,6 @@ public class SuffixExpression2NFA {
                         break;
                     }
                     default: {
-                        // todo 好像是对的
                         NFA newNFA = new NFA();
                         start = new NFAState(stateNum++);
                         end = new NFAState(stateNum++);
@@ -88,7 +89,7 @@ public class SuffixExpression2NFA {
         }
         NFA aNFA = nfaStack.pop();
         NFA tmpNFA;
-        while (!nfaStack.isEmpty()){
+        while (!nfaStack.isEmpty()) {
             NFAState start = new NFAState(stateNum++);
             tmpNFA = nfaStack.pop();
             // todo 有问题
