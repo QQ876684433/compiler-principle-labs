@@ -25,4 +25,8 @@ public class Production {
         }
         System.out.println();
     }
+
+    public List<Symbol> getSymbols(){
+        return this.symbols;
+    }
 }

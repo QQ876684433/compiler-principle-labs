@@ -42,13 +42,18 @@ public class CfgReader {
         });
     }
 
-    public Production getProductionByType(String type) {
+    public List<Production> getProductions(){
+        return this.productions;
+    }
+
+    public List<Production> getProductionByType(String type) {
+        List<Production> productions = new LinkedList<>();
         for (Production production : this.productions) {
             if (production.getType().equals(type)) {
-                return production;
+                productions.add(production);
             }
         }
-        return null;
+        return productions;
     }
 
     public void  print(){
