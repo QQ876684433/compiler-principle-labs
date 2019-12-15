@@ -13,9 +13,9 @@ function main <args, argv> {
         print add<1, 100>;
     }
     if a == b {
-        print a
+        print<a>;
     } else {
-        print b
+        print<b>;
     }
     return 0;
 }

@@ -5,7 +5,6 @@ FOR -> f.o.r
 IN -> i.n
 RET -> r.e.t.u.r.n
 FUNC -> f.u.n.c.t.i.o.n
-PRINT -> p.r.i.n.t
 ADD -> +
 INC -> +.+
 MINUS -> -
@@ -20,7 +19,7 @@ GT -> >
 GE -> >.=
 DEF -> =
 LSB -> [
-ESB -> ]
+RSB -> ]
 LCB -> {
 RCB -> }
 VAR -> v.a.r
