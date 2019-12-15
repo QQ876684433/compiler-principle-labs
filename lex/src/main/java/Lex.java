@@ -14,7 +14,7 @@ public class Lex {
     public static final String ILLEGAL_TOKEN = "ILLEGAL_TOKEN";
 
     public static void main(String[] args) throws IOException {
-        String testFile = "src/main/resources/test_file.txt";
+        String testFile = "lex/src/main/resources/test_file.txt";
         NFA nfa = SuffixExpression2NFA.transform(RE2SuffixExpression.transform(RE.loadREs()));
         DFA dfa = NFA2DFA.transform(nfa);
         List<RE> rules = RE.loadREs();
@@ -65,7 +65,7 @@ public class Lex {
             }
         }
 
-        String outputFile = "src/main/resources/output_tokens.txt";
+        String outputFile = "lex/src/main/resources/output_tokens.txt";
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile)));
         for (Token token : tokens) {
             bw.write("<" + token.getCatalog() + ", " + token.getLexeme() + ">\n");
