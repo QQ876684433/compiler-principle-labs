@@ -65,6 +65,20 @@ public class Lex {
             }
         }
 
+        String last = builder.toString();
+        if (!last.isEmpty()){
+            // 要判断当前状态是否进入了终态
+            Iterator<SortedMap.Entry<Integer, Integer>> endStates = dfa.endStatesMap.iterator();
+            while (endStates.hasNext()) {
+                SortedMap.Entry<Integer, Integer> end = endStates.next();
+                if (end.getKey() == state) {
+                    // 说明到达了终态
+                    tokens.add(new Token(last, rules.get(end.getValue()).catalog));
+                    break;
+                }
+            }
+        }
+
         String outputFile = "lex/src/main/resources/output_tokens.txt";
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile)));
         for (Token token : tokens) {

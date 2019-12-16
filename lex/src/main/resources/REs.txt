@@ -4,7 +4,7 @@ WHILE -> w.h.i.l.e
 FOR -> f.o.r
 IN -> i.n
 RET -> r.e.t.u.r.n
-FUNC -> f.u.n.c.t.i.o.n
+FUNCTION -> f.u.n.c.t.i.o.n
 ADD -> +
 INC -> +.+
 MINUS -> -
