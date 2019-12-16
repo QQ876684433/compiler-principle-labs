@@ -24,7 +24,8 @@ public class First {
     public static Set<Symbol> first(CfgReader cfg, List<Symbol> string) {
         Set<Symbol> symbols = new HashSet<>();
 
-        for (Symbol s : string) {
+        for (int i = 0; i < string.size(); i++) {
+            Symbol s = string.get(i);
             Set<Symbol> f = first(cfg, s);
             symbols.addAll(f);
             // judge if X→ ε is a production
@@ -32,12 +33,20 @@ public class First {
             for (Symbol tmp : f) {
                 if (tmp.getType() == Symbol.EPSILON) {
                     hasEpsilon = true;
+                    // 判断是不是最后一个符号
+                    if (i != string.size() - 1) {
+                        symbols.remove(new Symbol(Symbol.EPSILON, "ε"));
+                    }
                     break;
                 }
             }
             if (!hasEpsilon) {
                 break;
             }
+        }
+
+        if (string.size() == 0) {
+            symbols.add(new Symbol(Symbol.EPSILON, "ε"));
         }
 
         return symbols;

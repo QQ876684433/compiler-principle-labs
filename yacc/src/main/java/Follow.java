@@ -9,17 +9,18 @@ public class Follow {
         }
 
         for (Production production : cfg.getProductions()) {
-            if (production.getSymbols().contains(symbol)) {
+            if (production.containsSymbol(symbol)) {
                 // If there is A → αBβ in G, then add (First(β)-) to Follow(B).
-                int index = production.getSymbols().indexOf(symbol);
+                int index = production.indexOf(symbol);
                 Set<Symbol> f = First.first(cfg,
                         production.getSymbols().subList(index + 1, production.getSymbols().size()));
                 Symbol epsilon = new Symbol(Symbol.EPSILON, "ε");
-                boolean hasEpsilon = f.contains(epsilon);
-                if (hasEpsilon){
-                    f.remove(epsilon);
-                    symbols.addAll(follow(cfg, new Symbol(Symbol.VN, production.getType())));
-                }else {
+                boolean hasEpsilon = f.remove(epsilon);
+                if (hasEpsilon) {
+                    if (!symbol.getSymbol().equals(production.getType()))
+                        // 如果是反过来求自身的follow，则跳过
+                        symbols.addAll(follow(cfg, new Symbol(Symbol.VN, production.getType())));
+                } else {
                     symbols.addAll(f);
                 }
             }

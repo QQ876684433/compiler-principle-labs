@@ -26,7 +26,21 @@ public class Production {
         System.out.println();
     }
 
-    public List<Symbol> getSymbols(){
+    public List<Symbol> getSymbols() {
         return this.symbols;
+    }
+
+    public boolean containsSymbol(Symbol symbol) {
+        return indexOf(symbol) >= 0;
+    }
+
+    public int indexOf(Symbol symbol) {
+        for (int i = 0; i < symbols.size(); i++) {
+            Symbol s = symbols.get(i);
+            if (s.equals(symbol)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
