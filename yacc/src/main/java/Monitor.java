@@ -8,7 +8,7 @@ public class Monitor {
     public static final Symbol $L = new Symbol(Symbol.VT, "$");
     public static final Symbol epsilon = new Symbol(Symbol.EPSILON, "ε");
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static List<Production> parse() throws FileNotFoundException {
         PPT ppt = PPTBuilder.build();
         List<Production> derivationSequence = new LinkedList<>();
         TokenReader tokenReader = new TokenReader(tokenSrc);
@@ -39,7 +39,7 @@ public class Monitor {
                         if (token.getCatalog().equals("$")) {
                             // If X=a=$, the parser halts and announces
                             // successful completion of parsing;
-                            System.out.println("successfully");
+                            System.out.println("parse successfully");
                             break;
                         } else {
                             // If X=a!=$, the parser pops X off the stack
@@ -52,6 +52,6 @@ public class Monitor {
                 }
             }
         }
-        System.out.println();
+        return derivationSequence;
     }
 }
