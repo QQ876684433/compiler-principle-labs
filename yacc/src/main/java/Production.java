@@ -14,6 +14,11 @@ public class Production {
         symbols = new LinkedList<>();
     }
 
+    public Production(String type, List<Symbol> symbols){
+        this.type = type;
+        this.symbols = symbols;
+    }
+
     public void addSymbol(Symbol symbol) {
         this.symbols.add(symbol);
     }

@@ -18,7 +18,13 @@ public class TokenReader {
             String[] spits = tmp.split(",");
             tokens.add(new Token(spits[1].trim(), spits[0].trim()));
         });
+        tokens.add(new Token("$", "$"));
         cur = 0;
+    }
+
+    public void unGet() {
+        if (cur > 0)
+            cur--;
     }
 
     public boolean hasNext() {

@@ -2,7 +2,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Follow {
-    public static Set<Symbol> follow(CfgReader cfg, Symbol symbol) {
+    public static Set<Symbol> follow(CfgReader cfg, Symbol symbol, Symbol target) {
         Set<Symbol> symbols = new HashSet<>();
         if (symbol.getSymbol().equals(CfgReader.START)) {
             symbols.add(new Symbol(Symbol.ACCEPT, "$"));
@@ -17,9 +17,9 @@ public class Follow {
                 Symbol epsilon = new Symbol(Symbol.EPSILON, "ε");
                 boolean hasEpsilon = f.remove(epsilon);
                 if (hasEpsilon) {
-                    if (!symbol.getSymbol().equals(production.getType()))
+                    if (!(symbol.getSymbol().equals(production.getType())  || production.getType().equals(target.getSymbol())))
                         // 如果是反过来求自身的follow，则跳过
-                        symbols.addAll(follow(cfg, new Symbol(Symbol.VN, production.getType())));
+                        symbols.addAll(follow(cfg, new Symbol(Symbol.VN, production.getType()), target));
                 } else {
                     symbols.addAll(f);
                 }
