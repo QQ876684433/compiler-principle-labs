@@ -43,6 +43,14 @@ public class CfgReader {
         });
     }
 
+    public List<String> getSymbols(){
+        List<String> symbols = new LinkedList<>();
+        for (Production production:productions){
+            symbols.add(production.getType());
+        }
+        return symbols;
+    }
+
     public List<Production> getProductions(){
         return this.productions;
     }
